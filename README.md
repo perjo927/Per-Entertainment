@@ -5,7 +5,7 @@ This is PE.
 *TODO*
 
 ## Getting started
-Use [Yarn]() or [NPM](). 
+Use [Yarn]() or [NPM]().
 
 > yarn
 

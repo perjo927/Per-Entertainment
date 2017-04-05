@@ -1,10 +1,16 @@
 {
   "scripts": {
-    "serve": "",
+    "serve": "node app.js",
     "start": "",
     "test": ""
   },
   "dependencies": {
-    "restify": "^4.3.0"
-  }
+    "express": "^4.15.2"
+  },
+  "name": "PE",
+  "version": "0.0.1",
+  "main": "app.js",
+  "repository": "https://bitbucket.org/perjo927/",
+  "author": "per jonsson",
+  "license": "MIT"
 }
