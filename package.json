@@ -1,0 +1,10 @@
+{
+  "scripts": {
+    "serve": "",
+    "start": "",
+    "test": ""
+  },
+  "dependencies": {
+    "restify": "^4.3.0"
+  }
+}
