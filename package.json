@@ -1,6 +1,6 @@
 {
   "scripts": {
-    "serve": "node main.js",
+    "serve": "node ./server/main.js",
     "start": "",
     "test": ""
   },
@@ -10,7 +10,7 @@
   "name": "PerEntertainment",
   "description" : "An entertaining app",
   "version": "0.0.1",
-  "main": "main.js",
+  "main": "./server/main.js",
   "repository": "https://bitbucket.org/perjo927/perent",
   "author": "per jonsson"
 }
