@@ -1,0 +1,16 @@
+{
+  "scripts": {
+    "serve": "node ./server/main.js",
+    "start": "",
+    "test": ""
+  },
+  "dependencies": {
+    "express": "^4.15.2"
+  },
+  "name": "PerEntertainment",
+  "description" : "An entertaining app",
+  "version": "0.0.1",
+  "main": "./server/main.js",
+  "repository": "https://bitbucket.org/perjo927/perent",
+  "author": "per jonsson"
+}
