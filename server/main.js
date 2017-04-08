@@ -19,8 +19,6 @@ app.all('/game/:id/newround', (req, res, next) => {
   next();
 });
 
-
-
 /**
  *  ROUTES
  * 

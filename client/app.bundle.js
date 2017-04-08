@@ -87,9 +87,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 console.log("foo", __WEBPACK_IMPORTED_MODULE_0__module__["a" /* foo */])
 
-let myImage = document.querySelector('img');
+let images = {
+    symbols: [],
+    button: ""
+};
 
-let options = {
+let resourceContainer = document.querySelector('.resources');
+
+const host = "http://localhost:3000/"
+const options = {
     method: 'GET',
     mode: 'cors',
     cache: 'default'
@@ -97,17 +103,30 @@ let options = {
 
 fetch('http://localhost:3000/game/1', options)
     .then(function (response) {
-        console.log(response)
         return response.json();
     })
     .then(function (json) {
-        console.log(json)
+        images.symbols = json.resources.symbols;
+        images.button = json.resources.symbols;
     });
 
+
+for (let resource of images.symbols) {
+    fetch(`${host}${resource}`, options)
+        .then(function (response) {
+            return response.blob();
+        })
+        .then(function (imgBlob) {
+            const objectURL = URL.createObjectURL(imgBlob);
+            let img = document.createElement("img");
+            img.src = objectURL;
+            console.log(resourceContainer);
+            resourceContainer.appendChild(img);
+        });
+}
 
 fetch('http://localhost:3000/game/1/newround', options)
     .then(function (response) {
-        console.log(response)
         return response.json();
     })
     .then(function (json) {
@@ -115,15 +134,7 @@ fetch('http://localhost:3000/game/1/newround', options)
     });
 
 
-fetch('http://localhost:3000/images/0.jpg', options)
-    .then(function (response) {
-        console.log(response)
-        return response.blob();
-    })
-    .then(function (myBlob) {
-        var objectURL = URL.createObjectURL(myBlob);
-        myImage.src = objectURL;
-    });
+
 
 
 /***/ })
