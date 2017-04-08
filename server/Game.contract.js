@@ -11,8 +11,12 @@ class Game {
         }
     }
 
-    getId() {
+    get id() {
         return this._gameConfiguration.id;
+    }
+
+    get resources() {
+        return this._gameConfiguration.resources;
     }
 
     static _getRandomNumber(min, max) {

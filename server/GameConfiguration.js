@@ -1,30 +1,30 @@
 class GameConfiguration {
 
-    _symbolsRange = 5;
-    _columns = 3;
-    _winTypes = [
-            "No Win",
-            "Small Win",
-            "Big Win"
-    ];
-
     constructor(id = null, resources = null) {
         if (id) {
-            this._id = id;            
+            this._id = id;
         } else {
             throw { name: "RequiredParameterException", message: "Must set game Id" };
         }
 
         if (resources) {
-            this._resources = resources;            
+            this._resources = resources;
         } else {
             throw { name: "RequiredParameterException", message: "Must provide resources" };
         }
 
-        this._name = id;     
+        this._name = id;
+        
+        this._symbolsRange = 5;
+        this._columns = 3;
+        this._winTypes = [
+            "No Win",
+            "Small Win",
+            "Big Win"
+        ];
     }
 
-    get columns () {
+    get columns() {
         return this._columns;
     }
 
@@ -32,7 +32,7 @@ class GameConfiguration {
         return this._id();
     }
 
-    get name () {
+    get name() {
         return this._name;
     }
     set name(name) {
@@ -41,16 +41,16 @@ class GameConfiguration {
         }
     }
 
-    get resources () {
+    get resources() {
         return this._resources;
     }
-    
-    get symbolsRange () {
+
+    get symbolsRange() {
         return this._symbolsRange;
     }
 
-    get winTypes() {     
-        return this._winTypes;        
+    get winTypes() {
+        return this._winTypes;
     }
 }
 
