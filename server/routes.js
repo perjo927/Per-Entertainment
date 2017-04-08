@@ -1,5 +1,9 @@
 
 module.exports = {
+    allow: (res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    },
     home: (req, res) => res.send('Welcome to Per Entertainment!'),
     getGame: function (req, res) {
         const { id } = req.params;

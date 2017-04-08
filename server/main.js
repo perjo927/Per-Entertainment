@@ -4,8 +4,22 @@ const games = require('./games/game-list');
 const express = require('express');
 const app = express();
 
-// resources available to GET from http://localhost:3000/
-app.use(express.static('public'));
+app.all('/', (req, res, next) => {
+  routes.allow(res);
+  next();
+});
+
+app.all('/game/:id', (req, res, next) => {
+  routes.allow(res);
+  next();
+});
+
+app.all('/game/:id/newround', (req, res, next) => {
+  routes.allow(res);
+  next();
+});
+
+
 
 /**
  *  ROUTES
@@ -22,5 +36,10 @@ app.get('/game/:id/newround', routes.playNewGameRound.bind({ games: games }));
 
 app.listen(3000, () => console.log('Entertainment served on port 3000'));
 
+app.use((req, res, next) => {
+  routes.allow(res);
+  next();
+});
+app.use(express.static('public'));
 app.use(routes.notFound);
 app.use(routes.serverException);
