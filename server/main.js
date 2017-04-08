@@ -21,3 +21,6 @@ app.get('/game/:id', routes.getGame.bind({ games: games }));
 app.get('/game/:id/newround', routes.playNewGameRound.bind({ games: games }));
 
 app.listen(3000, () => console.log('Entertainment served on port 3000'));
+
+app.use(routes.notFound);
+app.use(routes.serverException);

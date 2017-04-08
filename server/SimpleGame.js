@@ -11,30 +11,31 @@ class SimpleGame extends Game {
         return coinFlip === 1;
     }
 
-    static _getWinType(gameResults) {
+    _getWinType(gameResults) {
         let wins = 0;
+        let game = this._gameConfiguration;        
 
         for (let symbol of gameResults) {
             if (symbol) {
-                wins++;
+                // wins++;
             }
         }
-        return this._gameConfiguration.winTypes[wins];
+
+        return game.winTypes[wins];
     }
 
     getNewRound() {
         let gameResults = [];        
+        let game = this._gameConfiguration;
 
-        for (let i = 0; i < this._gameConfiguration.columns; i++) {
-            gameResults.push(_getRandomNumber(0, this._gameConfiguration.symbolsRange));
+        for (let i = 0; i < game.columns; i++) {
+            gameResults.push(this.constructor._getRandomNumber(0, game.symbolsRange));
         }
-
-        const winType = this._getWinType(gameResults);
 
         return {
             "outcome": gameResults,
-            "winType": winType,
-            "bonus": this._isFreeGameRound()
+            "winType": this._getWinType(gameResults),
+            "bonus": this.constructor._isFreeGameRound()
         };
     }
 }

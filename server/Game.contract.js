@@ -23,7 +23,7 @@ class Game {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    static getNewRound() {
+    getNewRound() {
         throw { name: "NotImplementedException", message: "Child class must implement getNewRound()" };
     }
 }
