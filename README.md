@@ -17,3 +17,13 @@ Use [Yarn]() or [NPM]().
 
 ## Test
 > yarn test
+
+## Documentation
+
+### API
+* *GET /*
+    * Ping this route to see if it's alive
+* *GET /game/:id*
+    * Get resources for a game with :id
+* *GET /game/:id/newround*
+    * Get a new round for a game with :id
