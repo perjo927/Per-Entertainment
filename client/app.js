@@ -4,71 +4,72 @@ import "./style.scss";
 console.log(foo);
 
 const host = "http://localhost:3000/"
+const gameId = 1;
 const options = {
     method: 'GET',
     mode: 'cors',
     cache: 'default'
 };
 
+let f = async () => {
+    let response, json;
+    
+    response = await fetch(`${host}game/${gameId}`, options);
+    json = await response.json();
+
+    const resources = {
+        symbols: json.resources.symbols,
+        button: json.resources.button,
+        name: json.name
+    };
+
+    let h1 = document.querySelector('h1');
+    h1.textContent = resources.name;
+
+    let resourceContainer = document.querySelector('.resources');
+    let button = document.querySelector('button');
+
+    let imgBlob, objectURL, img;
+    
+    // Symbols
+    for (let resource of resources.symbols) {
+        response = await fetch(`${host}${resource}`, options)
+        imgBlob = await response.blob();
+
+        objectURL = URL.createObjectURL(imgBlob);
+        img = document.createElement("img");
+        img.src = objectURL;
+        resourceContainer.appendChild(img);
+    }
+
+    // Button
+    response = await fetch(`${host}${resources.button}`, options)
+    imgBlob = await response.blob();
+
+    objectURL = URL.createObjectURL(imgBlob);
+    img = document.createElement("img");
+    img.src = objectURL;
+
+    button.appendChild(img);
+
+    button.onclick = async () => {
+        let r = await fetch(`${host}game/1/newround`, options)
+        let j = await r.json();
+
+        const { bonus, outcome, winType } = j;
+
+        if (bonus) {
+            console.log("FREE SPIN")
+        }
+        console.log(outcome);
+        console.log(winType);
+    }
+
+}
+f();
 // GET resources
 // TODO: handlers
-fetch('http://localhost:3000/game/1', options)
-    .then((response) => {
-        return response.json();
-    })
-    .then((json) => {
-        return {
-            symbols: json.resources.symbols,
-            button: json.resources.button,
-            name: json.name
-        }
-    }).then((resources) => {
-        let h1 = document.querySelector('h1');
-        h1.textContent = resources.name;
 
-        let resourceContainer = document.querySelector('.resources');
-        let button = document.querySelector('button');
-
-        // Symbols
-        for (let resource of resources.symbols) {
-            fetch(`${host}${resource}`, options)
-                .then(function (response) {
-                    return response.blob();
-                })
-                .then(function (imgBlob) {
-                    const objectURL = URL.createObjectURL(imgBlob);
-                    let img = document.createElement("img");
-                    img.src = objectURL;
-                    resourceContainer.appendChild(img);
-                });
-        }
-        // Button
-        fetch(`${host}${resources.button}`, options)
-            .then(function (response) {
-                return response.blob();
-            })
-            .then(function (imgBlob) {
-                const objectURL = URL.createObjectURL(imgBlob);
-                let img = document.createElement("img");
-                img.src = objectURL;
-
-                button.appendChild(img);
-                button.onclick = () => {
-                    fetch('http://localhost:3000/game/1/newround', options)
-                        .then(function (response) {
-                            return response.json();
-                        })
-                        .then(function (json) {
-                            const { bonus, outcome, winType } = json;
-                            if (bonus) {
-                                console.log("BONUS")
-                            }
-                            console.log(outcome);
-                            console.log(winType);                            
-                        });
-                }
-            });
-    });
 
 
 
