@@ -1,17 +1,20 @@
-var express = require('express')
-var app = express()
+const routes = require('./routes');
 
-// http://localhost:3000/images/0.jpg
-app.use(express.static('public'))
+const express = require('express');
+const app = express();
 
-// TODO: handlers
-app.get('/', (req, res) => res.send('Welcome to Per Entertainment!'))
-app.get('/game/:id', (req, res) => res.send(req.params))
-app.get('/game/:id/play', (req, res) => res.send({
-  "outcome": [0,1,2],
-  "winType": "noWin",
-  "bonus": false
-}))
+
+// GET from http://localhost:3000/images/0.jpg
+app.use(express.static('public'));
+
+// TODO: handler
+app.get('/', routes.home);
+
+// TODO: register route per game configuration id, in handler
+app.get('/game/:id', routes.getGame);
+
+// TODO: get from handler
+app.get('/game/:id/newround', routes.playNewGameRound);
 
 /**
  * Serve resources
@@ -22,4 +25,4 @@ app.get('/game/:id/play', (req, res) => res.send({
  * 
  */
 
-app.listen(3000, () => console.log('Entertainment served on port 3000'))
+app.listen(3000, () => console.log('Entertainment served on port 3000'));
