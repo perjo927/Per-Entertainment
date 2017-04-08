@@ -24,9 +24,9 @@ app.all('/game/:id/newround', (req, res, next) => {
  * 
  * 1. Serve resources
  * 2. Calculate outcome, 3 integers: [0, 0, 0]
- *    2.1. Type of win: (No Win, Small Win, Big Win)
- *    2.2 Two equal integers = Small Win. Three equal integers = Big Win.
- *    2.3. Randomly (in addition to outcome) return if bonus feature should be triggered or not. 
+ *    2.1. Type of win: (None, Small, Big)
+ *      2.1.1 Two equal integers = Small. Three equal = Big.
+ *    2.2. Randomly (in addition to outcome) return free spin round. 
  */
 app.get('/', routes.home);
 app.get('/game/:id', routes.getGame.bind({ games: games }));

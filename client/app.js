@@ -13,7 +13,7 @@ const options = {
 
 let f = async () => {
     let response, json;
-    
+
     response = await fetch(`${host}game/${gameId}`, options);
     json = await response.json();
 
@@ -30,41 +30,50 @@ let f = async () => {
     let button = document.querySelector('button');
 
     let imgBlob, objectURL, img;
-    
+
     // Symbols
-    for (let resource of resources.symbols) {
-        response = await fetch(`${host}${resource}`, options)
+    let handleSymbols = async () => {
+        let objectURLs = [];
+
+        for (let resource of resources.symbols) {
+            response = await fetch(`${host}${resource}`, options)
+            imgBlob = await response.blob();
+
+            objectURLs.push(URL.createObjectURL(imgBlob));
+
+            objectURL = URL.createObjectURL(imgBlob);
+            img = document.createElement("img");
+            img.src = objectURL;
+            resourceContainer.appendChild(img);
+        }
+    }
+    await handleSymbols();
+
+    let handleButton = async () => {
+        // Button
+        response = await fetch(`${host}${resources.button}`, options)
         imgBlob = await response.blob();
 
         objectURL = URL.createObjectURL(imgBlob);
         img = document.createElement("img");
         img.src = objectURL;
-        resourceContainer.appendChild(img);
-    }
 
-    // Button
-    response = await fetch(`${host}${resources.button}`, options)
-    imgBlob = await response.blob();
+        button.appendChild(img);
 
-    objectURL = URL.createObjectURL(imgBlob);
-    img = document.createElement("img");
-    img.src = objectURL;
+        button.onclick = async () => {
+            let r = await fetch(`${host}game/1/newround`, options)
+            let j = await r.json();
 
-    button.appendChild(img);
+            const { bonus, outcome, winType } = j;
 
-    button.onclick = async () => {
-        let r = await fetch(`${host}game/1/newround`, options)
-        let j = await r.json();
-
-        const { bonus, outcome, winType } = j;
-
-        if (bonus) {
-            console.log("FREE SPIN")
+            if (bonus) {
+                console.log("FREE SPIN")
+            }
+            console.log(outcome);
+            console.log(winType);
         }
-        console.log(outcome);
-        console.log(winType);
     }
-
+    await handleButton();
 }
 f();
 // GET resources
