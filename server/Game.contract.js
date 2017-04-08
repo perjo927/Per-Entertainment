@@ -15,6 +15,10 @@ class Game {
         return this._gameConfiguration.id;
     }
 
+    get name() {
+        return this._gameConfiguration.name;
+    }
+
     get resources() {
         return this._gameConfiguration.resources;
     }

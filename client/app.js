@@ -1,13 +1,7 @@
 import { foo } from "./module";
+import "./style.scss";
 
 console.log(foo);
-
-let images = {
-    symbols: [],
-    button: ""
-};
-
-let resourceContainer = document.querySelector('.resources');
 
 const host = "http://localhost:3000/"
 const options = {
@@ -16,15 +10,25 @@ const options = {
     cache: 'default'
 };
 
+// GET resources
 fetch('http://localhost:3000/game/1', options)
     .then((response) => {
         return response.json();
     })
     .then((json) => {
-        images.symbols = json.resources.symbols;
-        images.button = json.resources.button;
-    }).then(() => {
-        for (let resource of images.symbols) {
+        return {
+            symbols: json.resources.symbols,
+            button: json.resources.button,
+            name: json.name
+        }
+    }).then((resources) => {
+
+        let h1 = document.querySelector('h1');
+        h1.textContent = resources.name;
+
+        let resourceContainer = document.querySelector('.resources');
+
+        for (let resource of resources.symbols) {
             fetch(`${host}${resource}`, options)
                 .then(function (response) {
                     return response.blob();
@@ -36,7 +40,7 @@ fetch('http://localhost:3000/game/1', options)
                     resourceContainer.appendChild(img);
                 });
         }
-        fetch(`${host}${images.button}`, options)
+        fetch(`${host}${resources.button}`, options)
             .then(function (response) {
                 return response.blob();
             })
@@ -46,9 +50,7 @@ fetch('http://localhost:3000/game/1', options)
                 img.src = objectURL;
                 resourceContainer.appendChild(img);
             });
-
     });
-
 
 
 fetch('http://localhost:3000/game/1/newround', options)
