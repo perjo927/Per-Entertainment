@@ -57,15 +57,13 @@ export class Game {
         // TODO: show to user
         console.log(winType);
 
-        // TODO: pass in container to handlePlayClick
-        // const container = this._document.querySelector('.slot-grid');
         this._clearGrid(this.gameGrid);
         await this.showResult(this.gameGrid, outcome);
 
         if (bonus) {
             // TODO: show to user
             console.log("FREE SPIN")
-            await this.delay(300);
+            await this.delay(600);
             await this.handlePlayClick();
         }
     }
@@ -73,11 +71,8 @@ export class Game {
     _clearGrid(container) {
         for (let child of container.childNodes) {
             child.src = "";
+            child.className = "";
         }
-        // while (container.firstChild) {
-        // console.log(container.firstChild)
-        // container.removeChild(container.firstChild);            
-        // }
     }
 
     async showResult(container, outcome, timeout = 300, init = false) {
@@ -85,8 +80,6 @@ export class Game {
         if (init) {
             this.gameGrid = container;
         }
-
-        console.log(container.childNodes)
 
         for (let [index, symbol] of outcome.entries()) {
             url = this._symbols[symbol];
@@ -96,8 +89,9 @@ export class Game {
                 img.src = url;
                 container.appendChild(img);
             } else {
-                console.log(container.childNodes[index], index)
-                container.childNodes[index].src = url;
+                img = container.childNodes[index];
+                img.src = url;
+                img.className = "slide";
             }
 
             await this.delay(timeout);
