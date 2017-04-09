@@ -10,7 +10,7 @@
   },
   "name": "PerEntertainment",
   "description": "An entertaining app",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "main": "./server/main.js",
   "repository": "https://bitbucket.org/perjo927/perent",
   "author": "per jonsson",
