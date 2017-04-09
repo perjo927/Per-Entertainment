@@ -2,7 +2,6 @@
   "scripts": {
     "serve": "node ./server/main.js",
     "start": "webpack-dev-server",
-    "build": "webpack --output-filename dist/app.bundle.js",
     "test": "",
     "e2e": ""
   },
@@ -18,6 +17,7 @@
   "devDependencies": {
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.3.3",
     "css-loader": "^0.28.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "node-sass": "^4.5.2",
