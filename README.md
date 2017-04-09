@@ -17,7 +17,8 @@ Use [Yarn]() or [NPM]().
 
 ## Test
 > yarn test
-> yarn e2e
+
+> ~~yarn e2e~~
 
 ## Documentation
 
