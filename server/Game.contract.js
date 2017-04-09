@@ -15,6 +15,10 @@ class Game {
         return this._gameConfiguration.id;
     }
 
+    get name() {
+        return this._gameConfiguration.name;
+    }
+
     get resources() {
         return this._gameConfiguration.resources;
     }
@@ -23,7 +27,7 @@ class Game {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    static getNewRound() {
+    getNewRound() {
         throw { name: "NotImplementedException", message: "Child class must implement getNewRound()" };
     }
 }

@@ -1,16 +1,29 @@
 {
   "scripts": {
     "serve": "node ./server/main.js",
-    "start": "",
-    "test": ""
+    "start": "webpack-dev-server",
+    "test": "",
+    "e2e": ""
   },
   "dependencies": {
     "express": "^4.15.2"
   },
   "name": "PerEntertainment",
-  "description" : "An entertaining app",
+  "description": "An entertaining app",
   "version": "0.0.1",
   "main": "./server/main.js",
   "repository": "https://bitbucket.org/perjo927/perent",
-  "author": "per jonsson"
+  "author": "per jonsson",
+  "devDependencies": {
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-preset-env": "^1.3.3",
+    "css-loader": "^0.28.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "node-sass": "^4.5.2",
+    "sass-loader": "^6.0.3",
+    "style-loader": "^0.16.1",
+    "webpack": "^2.3.3",
+    "webpack-dev-server": "^2.4.2"
+  }
 }
