@@ -1,8 +1,8 @@
-# PE
-This is PE.
+# PerEnt
+This is Per Entertainment.
 
 ## About 
-*TODO*
+Play a round of Per's Quest and be prepared to win big.
 
 ## Getting started
 Use [Yarn]() or [NPM]().
@@ -27,3 +27,5 @@ Use [Yarn]() or [NPM]().
     * Get resources for a game with :id
 * *GET /game/:id/newround*
     * Get a new round for a game with :id
+
+### Client

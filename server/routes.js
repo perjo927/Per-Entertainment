@@ -1,9 +1,13 @@
 
 module.exports = {
+    allow: (res) => {
+        res.header("Access-Control-Allow-Origin", "*");
+        res.header("Access-Control-Allow-Headers", "X-Requested-With");
+    },
     home: (req, res) => res.send('Welcome to Per Entertainment!'),
     getGame: function (req, res) {
         const { id } = req.params;
-        
+
         const callContext = this;
         const game = callContext.games[id - 1];
         // if no game empty, throw 500!, no game available
@@ -17,22 +21,24 @@ module.exports = {
             name: game.name
         });
     },
-    playNewGameRound: function(req, res) {
+    playNewGameRound: function (req, res) {
         const { id } = req.params;
-        
+
         const callContext = this;
         const game = callContext.games[id - 1];
-         // if no game empty, throw 500!, no game available
+        // if no game empty, throw 500!, no game available
         if (!game) {
             throw { name: "ServerException", message: "Game not available" };
         }
 
-        console.log(game)
+        const gameRound = game.getNewRound();
 
-        res.send({
-            "outcome": [0, 1, 2],
-            "winType": "noWin",
-            "bonus": false
-        });
+        res.send(gameRound);
+    },
+    notFound: (req, res, next) => {
+        res.status(404).send("404 Not Found Exception");
+    },
+    serverException: (err, req, res, next) => {
+        res.status(500).send("500 Server Exception");
     }
 }
