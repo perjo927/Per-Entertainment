@@ -3344,11 +3344,14 @@ var initGame = function () {
                         return game.setSymbols(resources, page('.resources'));
 
                     case 7:
-                        game.showResult(page('.slot-grid'), [0, 0, 0], 0, true); // init game grid
-                        _context.next = 10;
+                        _context.next = 9;
+                        return game.showResult(page('.slot-grid'), [0, 0, 0], 0, true);
+
+                    case 9:
+                        _context.next = 11;
                         return game.setPlayButton(resources, page('button'));
 
-                    case 10:
+                    case 11:
                     case "end":
                         return _context.stop();
                 }
@@ -3708,30 +3711,27 @@ var Game = exports.Game = function () {
 
                                 this._playButton.disabled = true;
                                 this._clearGrid(this._gameGrid);
-                                _context7.next = 10;
-                                return this.showResult(this._gameGrid, outcome);
-
-                            case 10:
-                                _context7.next = 12;
+                                this.showResult(this._gameGrid, outcome);
+                                _context7.next = 11;
                                 return this._showAlert(winElement, winType);
 
-                            case 12:
+                            case 11:
                                 if (!bonus) {
-                                    _context7.next = 17;
+                                    _context7.next = 16;
                                     break;
                                 }
 
-                                _context7.next = 15;
+                                _context7.next = 14;
                                 return this._showAlert(freespinElement, "Free Spin!");
 
-                            case 15:
-                                _context7.next = 17;
+                            case 14:
+                                _context7.next = 16;
                                 return this._handlePlayClick(event);
 
-                            case 17:
+                            case 16:
                                 this._playButton.disabled = false;
 
-                            case 18:
+                            case 17:
                             case 'end':
                                 return _context7.stop();
                         }
@@ -3757,7 +3757,7 @@ var Game = exports.Game = function () {
                     var child = _step2.value;
 
                     child.src = "";
-                    child.className = "";
+                    child.classList.remove("slide");
                 }
             } catch (err) {
                 _didIteratorError2 = true;
@@ -3789,6 +3789,7 @@ var Game = exports.Game = function () {
                             case 0:
                                 url = void 0, img = void 0;
 
+
                                 if (init) {
                                     this._gameGrid = container;
                                 }
@@ -3801,7 +3802,7 @@ var Game = exports.Game = function () {
 
                             case 7:
                                 if (_iteratorNormalCompletion3 = (_step3 = _iterator3.next()).done) {
-                                    _context8.next = 19;
+                                    _context8.next = 27;
                                     break;
                                 }
 
@@ -3812,64 +3813,69 @@ var Game = exports.Game = function () {
 
                                 url = this._symbols[symbol];
 
-                                if (init) {
-                                    img = this._document.createElement("img");
-                                    img.src = url;
-                                    container.appendChild(img);
-                                } else {
-                                    img = container.childNodes[index];
-                                    img.src = url;
-                                    img.className = "slide";
+                                if (!init) {
+                                    _context8.next = 19;
+                                    break;
                                 }
 
-                                _context8.next = 16;
+                                img = this._document.createElement("img");
+                                img.src = url;
+                                container.appendChild(img);
+                                _context8.next = 24;
+                                break;
+
+                            case 19:
+                                img = container.childNodes[index];
+                                img.src = url;
+                                img.classList.add("slide");
+                                _context8.next = 24;
                                 return this._delay(timeout);
 
-                            case 16:
+                            case 24:
                                 _iteratorNormalCompletion3 = true;
                                 _context8.next = 7;
                                 break;
 
-                            case 19:
-                                _context8.next = 25;
+                            case 27:
+                                _context8.next = 33;
                                 break;
 
-                            case 21:
-                                _context8.prev = 21;
+                            case 29:
+                                _context8.prev = 29;
                                 _context8.t0 = _context8['catch'](5);
                                 _didIteratorError3 = true;
                                 _iteratorError3 = _context8.t0;
 
-                            case 25:
-                                _context8.prev = 25;
-                                _context8.prev = 26;
+                            case 33:
+                                _context8.prev = 33;
+                                _context8.prev = 34;
 
                                 if (!_iteratorNormalCompletion3 && _iterator3.return) {
                                     _iterator3.return();
                                 }
 
-                            case 28:
-                                _context8.prev = 28;
+                            case 36:
+                                _context8.prev = 36;
 
                                 if (!_didIteratorError3) {
-                                    _context8.next = 31;
+                                    _context8.next = 39;
                                     break;
                                 }
 
                                 throw _iteratorError3;
 
-                            case 31:
-                                return _context8.finish(28);
+                            case 39:
+                                return _context8.finish(36);
 
-                            case 32:
-                                return _context8.finish(25);
+                            case 40:
+                                return _context8.finish(33);
 
-                            case 33:
+                            case 41:
                             case 'end':
                                 return _context8.stop();
                         }
                     }
-                }, _callee8, this, [[5, 21, 25, 33], [26,, 28, 32]]);
+                }, _callee8, this, [[5, 29, 33, 41], [34,, 36, 40]]);
             }));
 
             function showResult(_x10, _x11) {

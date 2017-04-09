@@ -1,7 +1,7 @@
 # PerEnt
 This is Per Entertainment.
 
-## About 
+## About
 Play a round of Per's Quest and be prepared to win big.
 
 ## Getting started
@@ -17,6 +17,7 @@ Use [Yarn]() or [NPM]().
 
 ## Test
 > yarn test
+> yarn e2e
 
 ## Documentation
 
@@ -29,3 +30,9 @@ Use [Yarn]() or [NPM]().
     * Get a new round for a game with :id
 
 ### Client
+* Start the server
+* Start the client
+* Open [localhost:8080](http://localhost:8080) in Chrome
+
+### Devices
+Tested in Chrome and browser phone emulation
