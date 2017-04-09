@@ -2,7 +2,6 @@
 export class Game {
 
     constructor(host, id, document) {
-
         this._document = document;
         this._gameGrid = null;
         this._playButton = null;
@@ -100,11 +99,10 @@ export class Game {
                 img.src = url;
                 container.appendChild(img);
             } else {
-                img = container.childNodes[index];                
-                img.src = url;                
+                img = container.childNodes[index];
+                img.src = url;
                 img.classList.add("slide");
-            await this._delay(timeout);  
-                
+                await this._delay(timeout);
             }
 
         }

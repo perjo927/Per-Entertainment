@@ -1,0 +1,66 @@
+@import url(https://fonts.googleapis.com/css?family=Press+Start+2P);main {
+  margin-top: 15vh; }
+
+h1 {
+  font-size: 2vw;
+  font-family: 'Press Start 2P', cursive;
+  text-align: center; }
+
+.game-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; }
+
+.slot-grid {
+  height: 24vw;
+  overflow: hidden; }
+  .slot-grid img {
+    float: left;
+    height: 23vw;
+    width: 23vw; }
+
+button {
+  border: none;
+  background: none; }
+  button:disabled {
+    opacity: 0.3; }
+  button:focus {
+    outline: none; }
+  button:active:not(:disabled) {
+    width: 110px;
+    height: 110px; }
+  button img {
+    width: 100px;
+    height: 100px; }
+
+.alert {
+  font-family: 'Press Start 2P', cursive;
+  text-align: center; }
+
+.free-spin, .win {
+  text-transform: uppercase; }
+
+.win {
+  color: green; }
+
+.free-spin {
+  color: red; }
+
+.hide {
+  visibility: hidden; }
+
+.slide {
+  margin-top: -30vw;
+  animation: slide 0.5s forwards; }
+
+.show {
+  opacity: 0;
+  animation: show 1s ease-in; }
+
+@keyframes slide {
+  100% {
+    margin-top: 0; } }
+
+@keyframes show {
+  100% {
+    opacity: 1; } }

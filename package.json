@@ -2,7 +2,7 @@
   "scripts": {
     "serve": "node ./server/main.js",
     "start": "webpack-dev-server",
-    "test": "",
+    "test": "mocha ./server/game.test.js ./server/server.test.js && mocha --compilers js:babel-core/register ./client/game.test.js",
     "e2e": ""
   },
   "dependencies": {

@@ -19,15 +19,6 @@ app.all('/game/:id/newround', (req, res, next) => {
   next();
 });
 
-/**
- *  ROUTES
- * 
- * 1. Serve resources
- * 2. Calculate outcome, 3 integers: [0, 0, 0]
- *    2.1. Type of win: (None, Small, Big)
- *      2.1.1 Two equal integers = Small. Three equal = Big.
- *    2.2. Randomly (in addition to outcome) return free spin round. 
- */
 app.get('/', routes.home);
 app.get('/game/:id', routes.getGame.bind({ games: games }));
 app.get('/game/:id/newround', routes.playNewGameRound.bind({ games: games }));
