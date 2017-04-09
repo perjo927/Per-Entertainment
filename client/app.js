@@ -22,16 +22,25 @@ const getGameResources = async () => {
     };
 }
 
+const getNewGameRound = async () => {
+    let response = await fetch(`${host}game/1/newround`, options)
+    return await response.json();
+}
+
+const getImgBlob = async (resource) => {
+    let response = await fetch(`${host}${resource}`, options)
+    return await response.blob();
+}
+
 // Symbols
 const handleSymbols = async (resources, container) => {
     let imgBlob, objectURL, img, response;
     let objectURLs = [];
 
     for (let resource of resources.symbols) {
-        response = await fetch(`${host}${resource}`, options)
-        imgBlob = await response.blob();
+        const imgBlob = await getImgBlob(resource);
 
-        objectURLs.push(URL.createObjectURL(imgBlob));
+        // objectURLs.push(URL.createObjectURL(imgBlob));
 
         objectURL = URL.createObjectURL(imgBlob);
         img = document.createElement("img");
@@ -42,10 +51,8 @@ const handleSymbols = async (resources, container) => {
 
 let handleButton = async (resources, button) => {
     let imgBlob, objectURL, img, response;
+    imgBlob = await getImgBlob(resources.button);
 
-    // Button
-    response = await fetch(`${host}${resources.button}`, options)
-    imgBlob = await response.blob();
 
     objectURL = URL.createObjectURL(imgBlob);
     img = document.createElement("img");
@@ -54,10 +61,9 @@ let handleButton = async (resources, button) => {
     button.appendChild(img);
 
     button.onclick = async () => {
-        let r = await fetch(`${host}game/1/newround`, options)
-        let j = await r.json();
+        const gameRoundData = await getNewGameRound();
 
-        const { bonus, outcome, winType } = j;
+        const { bonus, outcome, winType } = gameRoundData;
 
         if (bonus) {
             console.log("FREE SPIN")
@@ -77,7 +83,7 @@ const initGameResources = async () => {
     let resourceContainer = document.querySelector('.resources');
     let button = document.querySelector('button');
 
-    await handleSymbols(resources, resourceContainer);   
+    await handleSymbols(resources, resourceContainer);
     await handleButton(resources, button);
 }
 initGameResources();
