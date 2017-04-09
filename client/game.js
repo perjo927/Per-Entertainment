@@ -67,7 +67,7 @@ export class Game {
 
         this._playButton.disabled = true;
         this._clearGrid(this._gameGrid);
-        this.showResult(this._gameGrid, outcome);
+        await this.showResult(this._gameGrid, outcome);
         await this._showAlert(winElement, winType);
 
         if (bonus) {
