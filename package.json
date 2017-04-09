@@ -3,7 +3,8 @@
     "serve": "node ./server/main.js",
     "start": "webpack-dev-server",
     "build": "webpack --output-filename dist/app.bundle.js",
-    "test": ""
+    "test": "",
+    "e2e": ""
   },
   "dependencies": {
     "express": "^4.15.2"
