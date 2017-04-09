@@ -1,5 +1,9 @@
 @import url('https://fonts.googleapis.com/css?family=Press+Start+2P');
 
+main {
+    margin-top: 15vh;    
+}
+
 h1 {
     font-size: 2vw;
     font-family: 'Press Start 2P', cursive;
@@ -13,13 +17,12 @@ h1 {
 }
 
 .slot-grid {
-    height: 20vw;
+    height: 24vw;
     overflow: hidden;
 
     img {
-        height: 20vw;
-        width: 20vw;
-        float: left;
+        height: 23vw;
+        width: 23vw;
     }
 }
 
