@@ -1,6 +1,6 @@
 const Game = require('./Game.contract')
 
-class SimpleGame extends Game {     
+class SimpleGame extends Game {
 
     constructor(gameConfiguration) {
         super(gameConfiguration);
@@ -12,20 +12,22 @@ class SimpleGame extends Game {
     }
 
     _getWinType(gameResults) {
+        let temp = -1;
         let wins = 0;
-        let game = this._gameConfiguration;        
+        const game = this._gameConfiguration;
 
         for (let symbol of gameResults) {
-            if (symbol) {
-                // wins++;
+            if (symbol === temp) {
+                wins++;
             }
+            temp = symbol;
         }
 
         return game.winTypes[wins];
     }
 
     getNewRound() {
-        let gameResults = [];        
+        let gameResults = [];
         let game = this._gameConfiguration;
 
         for (let i = 0; i < game.columns; i++) {

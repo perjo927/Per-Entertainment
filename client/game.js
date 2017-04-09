@@ -4,7 +4,8 @@ export class Game {
     constructor(host, id, document) {
 
         this._document = document;
-        this.gameGrid = null;
+        this._gameGrid = null;
+        this._playButton = null;
         this._fetchOptions = {
             method: 'GET',
             mode: 'cors',
@@ -15,7 +16,7 @@ export class Game {
         this._symbols = [];
     }
 
-    async delay(ms) {
+    async _delay(ms) {
         return new Promise(r => setTimeout(r, ms));
     }
 
@@ -30,12 +31,12 @@ export class Game {
         };
     }
 
-    async getNewGameRound() {
+    async _getNewGameRound() {
         let response = await fetch(`${this._host}game/1/newround`, this._fetchOptions)
         return await response.json();
     }
 
-    async getImgBlob(resource) {
+    async _getImgBlob(resource) {
         let response = await fetch(`${this._host}${resource}`, this._fetchOptions)
         return await response.blob();
     }
@@ -44,28 +45,37 @@ export class Game {
         let objectURLs = [];
 
         for (let resource of resources.symbols) {
-            const imgBlob = await this.getImgBlob(resource);
+            const imgBlob = await this._getImgBlob(resource);
             objectURLs.push(URL.createObjectURL(imgBlob));
         }
         this._symbols = objectURLs;
     }
 
-    async handlePlayClick() {
-        const gameRoundData = await this.getNewGameRound();
+    async _showAlert(container, message) {
+        container.textContent = message;
+        container.classList.remove("hide");
+        container.classList.add("show");
+        await this._delay(1000);
+        container.classList.add("hide");
+        container.classList.remove("show");
+    }
+
+    async _handlePlayClick(event) {
+        const gameRoundData = await this._getNewGameRound();
         const { bonus, outcome, winType } = gameRoundData;
+        const freespinElement = this._document.querySelector('.free-spin');
+        const winElement = this._document.querySelector('.win');
 
-        // TODO: show to user
-        console.log(winType);
-
-        this._clearGrid(this.gameGrid);
-        await this.showResult(this.gameGrid, outcome);
+        this._playButton.disabled = true;
+        this._clearGrid(this._gameGrid);
+        await this.showResult(this._gameGrid, outcome);
+        await this._showAlert(winElement, winType);
 
         if (bonus) {
-            // TODO: show to user
-            console.log("FREE SPIN")
-            await this.delay(600);
-            await this.handlePlayClick();
+            await this._showAlert(freespinElement, "Free Spin!");
+            await this._handlePlayClick(event);
         }
+        this._playButton.disabled = false;
     }
 
     _clearGrid(container) {
@@ -78,7 +88,7 @@ export class Game {
     async showResult(container, outcome, timeout = 300, init = false) {
         let url, img;
         if (init) {
-            this.gameGrid = container;
+            this._gameGrid = container;
         }
 
         for (let [index, symbol] of outcome.entries()) {
@@ -94,16 +104,18 @@ export class Game {
                 img.className = "slide";
             }
 
-            await this.delay(timeout);
+            await this._delay(timeout);
         }
     }
 
     async setPlayButton(resources, button) {
-        const imgBlob = await this.getImgBlob(resources.button);
+        this._playButton = button;
+
+        const imgBlob = await this._getImgBlob(resources.button);
         let img = this._document.createElement("img");
         img.src = URL.createObjectURL(imgBlob);
-        button.appendChild(img);
-        button.onclick = this.handlePlayClick.bind(this);
+        this._playButton.appendChild(img);
+        this._playButton.onclick = this._handlePlayClick.bind(this);
     }
 
     setTitle(resources, element) {
