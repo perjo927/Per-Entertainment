@@ -68,7 +68,7 @@ export class Game {
 
         this._playButton.disabled = true;
         this._clearGrid(this._gameGrid);
-        await this.showResult(this._gameGrid, outcome);
+        this.showResult(this._gameGrid, outcome);
         await this._showAlert(winElement, winType);
 
         if (bonus) {
@@ -81,12 +81,13 @@ export class Game {
     _clearGrid(container) {
         for (let child of container.childNodes) {
             child.src = "";
-            child.className = "";
+            child.classList.remove("slide");
         }
     }
 
     async showResult(container, outcome, timeout = 300, init = false) {
         let url, img;
+
         if (init) {
             this._gameGrid = container;
         }
@@ -99,12 +100,13 @@ export class Game {
                 img.src = url;
                 container.appendChild(img);
             } else {
-                img = container.childNodes[index];
-                img.src = url;
-                img.className = "slide";
+                img = container.childNodes[index];                
+                img.src = url;                
+                img.classList.add("slide");
+            await this._delay(timeout);  
+                
             }
 
-            await this._delay(timeout);
         }
     }
 

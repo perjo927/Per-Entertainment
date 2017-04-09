@@ -9,7 +9,7 @@ const initGame = async () => {
 
     game.setTitle(resources, page('h1'));
     await game.setSymbols(resources, page('.resources'));
-    game.showResult(page('.slot-grid'), [0, 0, 0], 0, true); // init game grid
+    await game.showResult(page('.slot-grid'), [0, 0, 0], 0, true); // init game grid
     await game.setPlayButton(resources, page('button'));
 }
 
