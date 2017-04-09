@@ -4,6 +4,7 @@ export class Game {
     constructor(host, id, document) {
 
         this._document = document;
+        this.gameGrid = null;
         this._fetchOptions = {
             method: 'GET',
             mode: 'cors',
@@ -14,8 +15,8 @@ export class Game {
         this._symbols = [];
     }
 
-    async delay (ms) { 
-        return new Promise(r => setTimeout(r, ms));        
+    async delay(ms) {
+        return new Promise(r => setTimeout(r, ms));
     }
 
     async getGameResources() {
@@ -57,32 +58,48 @@ export class Game {
         console.log(winType);
 
         // TODO: pass in container to handlePlayClick
-        const container = this._document.querySelector('.slot-grid');
-        this._clearGrid(container);
-        await this.showResult(container, outcome);
+        // const container = this._document.querySelector('.slot-grid');
+        this._clearGrid(this.gameGrid);
+        await this.showResult(this.gameGrid, outcome);
 
         if (bonus) {
             // TODO: show to user
             console.log("FREE SPIN")
-            await this.delay(300);            
+            await this.delay(300);
             await this.handlePlayClick();
         }
     }
 
     _clearGrid(container) {
-        while (container.firstChild) {
-            container.removeChild(container.firstChild);
+        for (let child of container.childNodes) {
+            child.src = "";
         }
+        // while (container.firstChild) {
+        // console.log(container.firstChild)
+        // container.removeChild(container.firstChild);            
+        // }
     }
 
-    async showResult(container, outcome, timeout = 300) {
+    async showResult(container, outcome, timeout = 300, init = false) {
         let url, img;
+        if (init) {
+            this.gameGrid = container;
+        }
 
-        for (let symbol of outcome) {
+        console.log(container.childNodes)
+
+        for (let [index, symbol] of outcome.entries()) {
             url = this._symbols[symbol];
-            img = this._document.createElement("img");
-            img.src = url;            
-            container.appendChild(img);
+
+            if (init) {
+                img = this._document.createElement("img");
+                img.src = url;
+                container.appendChild(img);
+            } else {
+                console.log(container.childNodes[index], index)
+                container.childNodes[index].src = url;
+            }
+
             await this.delay(timeout);
         }
     }
