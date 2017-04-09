@@ -14,6 +14,10 @@ export class Game {
         this._symbols = [];
     }
 
+    async delay (ms) { 
+        return new Promise(r => setTimeout(r, ms));        
+    }
+
     async getGameResources() {
         let response = await fetch(`${this._host}game/${this._id}`, this._fetchOptions);
         let json = await response.json();
@@ -55,11 +59,12 @@ export class Game {
         // TODO: pass in container to handlePlayClick
         const container = this._document.querySelector('.slot-grid');
         this._clearGrid(container);
-        this.showResult(container, outcome);
+        await this.showResult(container, outcome);
 
         if (bonus) {
             // TODO: show to user
             console.log("FREE SPIN")
+            await this.delay(300);            
             await this.handlePlayClick();
         }
     }
@@ -70,14 +75,15 @@ export class Game {
         }
     }
 
-    showResult(container, outcome) {
+    async showResult(container, outcome, timeout = 300) {
         let url, img;
 
         for (let symbol of outcome) {
             url = this._symbols[symbol];
             img = this._document.createElement("img");
-            img.src = url;
+            img.src = url;            
             container.appendChild(img);
+            await this.delay(timeout);
         }
     }
 
