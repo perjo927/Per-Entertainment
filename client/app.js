@@ -32,8 +32,7 @@ const getImgBlob = async (resource) => {
     return await response.blob();
 }
 
-// Symbols
-const handleSymbols = async (resources, container) => {
+const getSymbols = async (resources, container) => {
     let imgBlob, objectURL, img, response;
     let objectURLs = [];
 
@@ -49,28 +48,28 @@ const handleSymbols = async (resources, container) => {
     }
 }
 
-let handleButton = async (resources, button) => {
+const handleButtonClick = async () => {
+    const gameRoundData = await getNewGameRound();
+
+    const { bonus, outcome, winType } = gameRoundData;
+
+    if (bonus) {
+        console.log("FREE SPIN")
+    }
+    console.log(outcome);
+    console.log(winType);
+}
+
+const getButton = async (resources, button) => {
     let imgBlob, objectURL, img, response;
     imgBlob = await getImgBlob(resources.button);
-
 
     objectURL = URL.createObjectURL(imgBlob);
     img = document.createElement("img");
     img.src = objectURL;
-
     button.appendChild(img);
 
-    button.onclick = async () => {
-        const gameRoundData = await getNewGameRound();
-
-        const { bonus, outcome, winType } = gameRoundData;
-
-        if (bonus) {
-            console.log("FREE SPIN")
-        }
-        console.log(outcome);
-        console.log(winType);
-    }
+    button.onclick = handleButtonClick;
 }
 
 const initGameResources = async () => {
@@ -83,8 +82,8 @@ const initGameResources = async () => {
     let resourceContainer = document.querySelector('.resources');
     let button = document.querySelector('button');
 
-    await handleSymbols(resources, resourceContainer);
-    await handleButton(resources, button);
+    await getSymbols(resources, resourceContainer);
+    await getButton(resources, button);
 }
 initGameResources();
 // GET resources
