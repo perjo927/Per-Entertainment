@@ -1,8 +1,8 @@
-# PerEnt
-This is Per Entertainment.
+# Per Games Inc
+This is Per Games Incorporated.
 
 ## About
-Play a round of Per's Quest and be prepared to win big.
+Play a round of PerMobilCasino and be prepared to win big.
 
 ## Getting started
 Use [Yarn]() or [NPM]().
