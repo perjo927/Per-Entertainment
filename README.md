@@ -7,6 +7,9 @@ Play a round of PerMobilCasino and be prepared to win big.
 ## Getting started
 > yarn
 
+### Prequisites
+* You need to have Python 2.x installed on your machine
+
 ### Start server
 > yarn serve
 
