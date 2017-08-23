@@ -1,7 +1,6 @@
-
 export class Game {
 
-    constructor(host, id, document) {
+    constructor(host, id, document, spinEvent) {
         this._document = document;
         this._gameGrid = null;
         this._playButton = null;
@@ -13,6 +12,8 @@ export class Game {
         this._host = host;
         this._id = id;
         this._symbols = [];
+        this._spinEvent = spinEvent;
+        this._initRemoteSpin();
     }
 
     async _delay(ms) {
@@ -106,6 +107,15 @@ export class Game {
             }
 
         }
+    }
+
+    _initRemoteSpin() {
+        console.log(this._spinEvent)
+        document.addEventListener(this._spinEvent, function(e) {
+            console.log(e.detail); // Prints "spin to win"
+            this._handlePlayClick();
+
+        });
     }
 
     async setPlayButton(resources, button) {

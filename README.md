@@ -4,7 +4,7 @@ This is Per Games Incorporated.
 ## About
 Play a round of PerMobilCasino and be prepared to win big.
 
-### Prerequisites
+### Development prerequisites
 Python 2.x
 
 ## Getting started
