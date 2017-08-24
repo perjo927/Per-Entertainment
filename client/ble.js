@@ -2,13 +2,10 @@ import { logger } from "./logger";
 
 export class Ble {
 
-    constructor(remoteEventType) {
+    constructor() {
         this.characteristic = undefined;
         this._init();
         this._eventType = 'characteristicvaluechanged';
-        console.log(remoteEventType)
-        this._remoteEventType = remoteEventType;
-        console.log(this._remoteEventType)
     }
 
     _init() {
@@ -58,7 +55,7 @@ export class Ble {
             await this.characteristic.startNotifications();
 
             logger('Notifications enabled');
-            this.characteristic.addEventListener(this.eventType, this._handleNotifications);
+            this.characteristic.addEventListener(this.eventType, this._handleNotifications.bind(this));
 
         } catch (error) {
             logger(error);
@@ -80,8 +77,6 @@ export class Ble {
     _handleNotifications(event) {
         const value = event.target.value;
         const uint8 = value.getUint8();
-        logger(uint8);
-        console.log(this._remoteEventType)
-        document.dispatchEvent(new CustomEvent(this._remoteEventType, { "detail": "web bluetooth alert" }));
+        document.dispatchEvent(new CustomEvent(this.eventType, { "detail": "web bluetooth alert" }));
     }
 }

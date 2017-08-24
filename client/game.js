@@ -12,8 +12,7 @@ export class Game {
         this._host = host;
         this._id = id;
         this._symbols = [];
-        this._spinEvent = spinEvent;
-        this._initRemoteSpin();
+        this._initRemoteSpin(spinEvent);
     }
 
     async _delay(ms) {
@@ -109,12 +108,10 @@ export class Game {
         }
     }
 
-    _initRemoteSpin() {
-        console.log(this._spinEvent)
-        document.addEventListener(this._spinEvent, function(e) {
-            console.log(e.detail); // Prints "spin to win"
-            this._handlePlayClick();
-
+    _initRemoteSpin(spinEvent) {
+        document.addEventListener(spinEvent, (e) => {
+            // this._handlePlayClick();
+            this._playButton.click();
         });
     }
 

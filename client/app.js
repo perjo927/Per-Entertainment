@@ -17,5 +17,5 @@ const initBle = (spinEvent) => {
     return new Ble(spinEvent);
 }
 
-initBle("spin");
-initGame("spin");
+const ble = initBle();
+initGame(ble.eventType);
