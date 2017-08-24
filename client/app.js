@@ -1,9 +1,9 @@
 import { Game } from "./game";
+import { Ble } from "./ble";
 import "./style.scss";
 
-const game = new Game("http://localhost:3000/", 1, document);
-
-const initGame = async () => {
+const initGame = async(spinEventName) => {
+    const game = new Game("http://localhost:3000/", 1, document, spinEventName);
     let page = document.querySelector.bind(document);
     const resources = await game.getGameResources();
 
@@ -13,8 +13,9 @@ const initGame = async () => {
     await game.setPlayButton(resources, page('button'));
 }
 
-initGame();
+const initBle = (spinEvent) => {
+    return new Ble(spinEvent);
+}
 
-
-
-
+const ble = initBle();
+initGame(ble.eventType);

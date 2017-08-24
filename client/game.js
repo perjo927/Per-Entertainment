@@ -1,7 +1,6 @@
-
 export class Game {
 
-    constructor(host, id, document) {
+    constructor(host, id, document, spinEvent) {
         this._document = document;
         this._gameGrid = null;
         this._playButton = null;
@@ -13,6 +12,7 @@ export class Game {
         this._host = host;
         this._id = id;
         this._symbols = [];
+        this._initRemoteSpin(spinEvent);
     }
 
     async _delay(ms) {
@@ -106,6 +106,13 @@ export class Game {
             }
 
         }
+    }
+
+    _initRemoteSpin(spinEvent) {
+        document.addEventListener(spinEvent, (e) => {
+            // this._handlePlayClick();
+            this._playButton.click();
+        });
     }
 
     async setPlayButton(resources, button) {
