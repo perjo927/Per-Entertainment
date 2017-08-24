@@ -1,13 +1,17 @@
-# PerEnt
-This is Per Entertainment.
+# Per Games Inc
+This is Per Games Incorporated.
 
 ## About
-Play a round of Per's Quest and be prepared to win big.
+Play a round of PerMobilCasino and be prepared to win big.
+
+### Development prerequisites
+Python 2.x
 
 ## Getting started
-Use [Yarn]() or [NPM]().
-
 > yarn
+
+### Prequisites
+* You need to have Python 2.x installed on your machine
 
 ### Start server
 > yarn serve
@@ -17,23 +21,3 @@ Use [Yarn]() or [NPM]().
 
 ## Test
 > yarn test
-
-> ~~yarn e2e~~
-
-## Documentation
-
-### API
-* *GET /*
-    * Ping this route to see if it's alive
-* *GET /game/:id*
-    * Get resources for a game with :id
-* *GET /game/:id/newround*
-    * Get a new round for a game with :id
-
-### Client
-* Start the server
-* Start the client
-* Open [localhost:8080](http://localhost:8080) in Chrome
-
-### Devices
-Tested in Chrome and browser phone emulation
